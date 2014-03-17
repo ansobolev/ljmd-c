@@ -1,4 +1,4 @@
-/* 
+\/* 
  * simple lennard-jones potential MD code with velocity verlet.
  * units: Length=Angstrom, Mass=amu; Energy=kcal
  */
@@ -13,8 +13,10 @@
 #include <omp.h>
 #endif
 
+#DEFINE LJMD_VERSION "LJMD AS version v 0.1"
 /* generic file- or pathname buffer length */
 #define BLEN 200
+
 
 /* a few physical constants */
 const double kboltz=0.0019872067;     /* boltzman constant in kcal/mol/K */
@@ -464,6 +466,8 @@ int main(int argc, char **argv)
 #else
     sys.nthreads=1;
 #endif
+
+    puts(LJMD_VERSION);
 
     /* read input file */
     if(get_a_line(stdin,line)) return 1;
