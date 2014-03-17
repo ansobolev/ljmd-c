@@ -1,3 +1,4 @@
+
 /* 
  * simple lennard-jones potential MD code with velocity verlet.
  * units: Length=Angstrom, Mass=amu; Energy=kcal
@@ -8,6 +9,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <math.h>
+#include <sys/time.h>
 
 #if defined(_OPENMP)
 #include <omp.h>
@@ -76,6 +78,16 @@ static int get_a_line(FILE *fp, char *buf)
     return 0;
 }
  
+/*helper function, get current time in seconds since epoch*/
+static double wallclock(void)
+ {
+ struct timeval t;
+
+ gettimeoday (&t,0);
+ return ((double) t.tv_sec) + 1.0e­6 * ((double) t.tv_usec);
+ }
+
+
 /* helper function: zero out an array */
 __attribute__((always_inline))
 static void azzero(double *d, const int n)
@@ -452,7 +464,9 @@ int main(int argc, char **argv)
     char restfile[BLEN], trajfile[BLEN], ergfile[BLEN], line[BLEN];
     FILE *fp,*traj,*erg;
     mdsys_t sys;
+    double t_start;
 
+    t_start = wallclock();
 #if defined(_OPENMP)
 #pragma omp parallel
     {
