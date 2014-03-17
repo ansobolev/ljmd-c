@@ -14,7 +14,7 @@
 #include <omp.h>
 #endif
 
-#DEFINE LJMD_VERSION "LJMD AS version v 0.1"
+#define LJMD_VERSION "LJMD AS version v 0.1"
 /* generic file- or pathname buffer length */
 #define BLEN 200
 
@@ -84,8 +84,8 @@ static double wallclock(void)
  {
  struct timeval t;
 
- gettimeoday (&t,0);
- return ((double) t.tv_sec) + 1.0e­6 * ((double) t.tv_usec);
+ gettimeofday (&t,0);
+ return ((double) t.tv_sec) + 1.0e6 * ((double) t.tv_usec);
  }
 
 
